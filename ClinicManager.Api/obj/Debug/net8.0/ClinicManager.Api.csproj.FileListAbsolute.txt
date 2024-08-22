@@ -135,6 +135,7 @@ S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\runtimes\win\
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+<<<<<<< HEAD
 C:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\appsettings.Development.json
 C:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\appsettings.json
 C:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\ClinicManager.Api.exe
@@ -274,3 +275,6 @@ C:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\refint\Clinic
 C:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.pdb
 C:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.genruntimeconfig.cache
 C:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ref\ClinicManager.Api.dll
+=======
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.sourcelink.json
+>>>>>>> 116778f9091b89e4bd67ec77906d7bef112ad619
