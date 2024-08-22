@@ -2,8 +2,16 @@
 
 namespace ClinicManager.Api.Entities
 {
-    public class Doctor
+    public class Doctor : BaseEntity
     {
+        public Doctor() { }
+        public Doctor(string name, string lastName, string cpf)
+        {
+            Name = name;
+            LastName = lastName;
+            CPF = cpf;
+        }
+ 
         private string _cpf;
 
         public int Id { get; set; }

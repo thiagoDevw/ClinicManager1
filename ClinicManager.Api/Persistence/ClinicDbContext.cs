@@ -2,9 +2,9 @@
 
 namespace ClinicManager.Api.Persistence
 {
-    public class ClinicManagerDbContext : DbContext
+    public class ClinicDbContext : DbContext
     {
-        public ClinicManagerDbContext(DbContextOptions<ClinicManagerDbContext> options)
+        public ClinicDbContext(DbContextOptions<ClinicDbContext> options)
             : base(options) 
         {
 

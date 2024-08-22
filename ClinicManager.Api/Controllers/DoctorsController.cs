@@ -1,4 +1,5 @@
-﻿using ClinicManager.Api.Models;
+﻿using ClinicManager.Api.Models.DoctorModels;
+using ClinicManager.Api.Models.PatientsModels;
 using ClinicManager.Api.Persistence;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,8 @@ namespace ClinicManager.Api.Controllers
     [Route("api/doctors")]
     public class DoctorsController : ControllerBase
     {
-        private readonly ClinicManagerDbContext _context;
-        public DoctorsController(ClinicManagerDbContext context)
+        private readonly ClinicDbContext _context;
+        public DoctorsController(ClinicDbContext context)
         {
             _context = context;
         }
@@ -32,7 +33,7 @@ namespace ClinicManager.Api.Controllers
 
         // POST api/doctors
         [HttpPost]
-        public IActionResult PostDoctor(CreateDoctorInputModel model)
+        public IActionResult PostDoctor(CreatePatientsInputModel model)
         {
             return CreatedAtAction(nameof(GetById), new { id = 1 }, model);
         }
@@ -44,6 +45,11 @@ namespace ClinicManager.Api.Controllers
             return NoContent();
         }
 
-        // DELETE api/
+        // DELETE api/doctors
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCustomer(int id)
+        {
+            return NoContent();
+        }
     }
 }

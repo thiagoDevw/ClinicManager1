@@ -1,5 +1,5 @@
 ﻿using ClinicManager.Api.Entities;
-using ClinicManager.Api.Models;
+using ClinicManager.Api.Models.CustomerModels;
 using ClinicManager.Api.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,8 +9,8 @@ namespace ClinicManager.Api.Controllers
     [ApiController]
     public class CustomerServiceController : ControllerBase
     {
-        private readonly ClinicManagerDbContext _context;
-        public CustomerServiceController(ClinicManagerDbContext context)
+        private readonly ClinicDbContext _context;
+        public CustomerServiceController(ClinicDbContext context)
         {
             _context = context;
         }
