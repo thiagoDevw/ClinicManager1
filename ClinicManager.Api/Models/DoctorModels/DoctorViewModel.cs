@@ -32,7 +32,6 @@ namespace ClinicManager.Api.Models.DoctorModels
         public string Address { get; set; }
         public string Specialty { get; set; }
         public string CRM { get; set; }
-        public string FullName => $"{Name} {LastName}";
 
         public static DoctorViewModel FromEntity(Doctor entity)
         {

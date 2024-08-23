@@ -47,7 +47,7 @@ namespace ClinicManager.Api.Controllers
 
         // DELETE api/doctors
         [HttpDelete("{id}")]
-        public IActionResult DeleteCustomer(int id)
+        public IActionResult DeleteDoctor(int id)
         {
             return NoContent();
         }
