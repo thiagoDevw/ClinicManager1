@@ -1,4 +1,5 @@
-using ClinicManager.Api.Persistence;
+
+using ClinicManager.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

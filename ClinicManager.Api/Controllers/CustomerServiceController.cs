@@ -1,7 +1,7 @@
-﻿using ClinicManager.Api.Entities;
+﻿using ClinicManager.Core.Entities;
 using ClinicManager.Api.Models.CustomerModels;
-using ClinicManager.Api.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using ClinicManager.Infrastructure.Persistence;
 
 namespace ClinicManager.Api.Controllers
 {

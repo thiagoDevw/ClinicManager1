@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ClinicManager.Infrastructure/1.0.0": {
+        "dependencies": {
+          "ClinicManager.Core": "1.0.0"
+        },
+        "runtime": {
+          "ClinicManager.Infrastructure.dll": {}
+        }
+      },
+      "ClinicManager.Core/1.0.0": {
+        "runtime": {
+          "ClinicManager.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ClinicManager.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ClinicManager.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

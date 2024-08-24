@@ -1,6 +1,6 @@
 ﻿using ClinicManager.Api.Models.DoctorModels;
 using ClinicManager.Api.Models.PatientsModels;
-using ClinicManager.Api.Persistence;
+using ClinicManager.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 

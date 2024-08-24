@@ -1223,6 +1223,45 @@
             "rid": "win"
           }
         }
+      },
+      "ClinicManager.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "ClinicManager.Core": "1.0.0",
+          "ClinicManager.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ClinicManager.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClinicManager.Application.dll": {}
+        }
+      },
+      "ClinicManager.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/ClinicManager.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClinicManager.Core.dll": {}
+        }
+      },
+      "ClinicManager.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "ClinicManager.Core": "1.0.0",
+          "Microsoft.EntityFrameworkCore.InMemory": "7.0.20",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.20"
+        },
+        "compile": {
+          "bin/placeholder/ClinicManager.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClinicManager.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -3861,10 +3900,28 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ClinicManager.Application/1.0.0": {
+      "type": "project",
+      "path": "../ClinicManager.Application/ClinicManager.Application.csproj",
+      "msbuildProject": "../ClinicManager.Application/ClinicManager.Application.csproj"
+    },
+    "ClinicManager.Core/1.0.0": {
+      "type": "project",
+      "path": "../ClinicManager.Core/ClinicManager.Core.csproj",
+      "msbuildProject": "../ClinicManager.Core/ClinicManager.Core.csproj"
+    },
+    "ClinicManager.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../ClinicManager.Infrastructure/ClinicManager.Infrastructure.csproj",
+      "msbuildProject": "../ClinicManager.Infrastructure/ClinicManager.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "ClinicManager.Application >= 1.0.0",
+      "ClinicManager.Core >= 1.0.0",
+      "ClinicManager.Infrastructure >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.0",
       "Microsoft.EntityFrameworkCore.InMemory >= 7.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.0",
@@ -3872,23 +3929,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SAMSUNG\\.nuget\\packages\\": {},
+    "C:\\Users\\ta741\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Clinic Manager\\ClinicManager\\ClinicManager.Api\\ClinicManager.Api.csproj",
+      "projectUniqueName": "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Api\\ClinicManager.Api.csproj",
       "projectName": "ClinicManager.Api",
-      "projectPath": "C:\\Clinic Manager\\ClinicManager\\ClinicManager.Api\\ClinicManager.Api.csproj",
-      "packagesPath": "C:\\Users\\SAMSUNG\\.nuget\\packages\\",
-      "outputPath": "C:\\Clinic Manager\\ClinicManager\\ClinicManager.Api\\obj\\",
+      "projectPath": "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Api\\ClinicManager.Api.csproj",
+      "packagesPath": "C:\\Users\\ta741\\.nuget\\packages\\",
+      "outputPath": "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\SAMSUNG\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ta741\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3903,7 +3960,17 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Application\\ClinicManager.Application.csproj": {
+              "projectPath": "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Application\\ClinicManager.Application.csproj"
+            },
+            "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Core\\ClinicManager.Core.csproj": {
+              "projectPath": "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Core\\ClinicManager.Core.csproj"
+            },
+            "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Infrastructure\\ClinicManager.Infrastructure.csproj": {
+              "projectPath": "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Infrastructure\\ClinicManager.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -3954,19 +4021,19 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.18, 7.0.18]"
+            "version": "[7.0.20, 7.0.20]"
           },
           {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[7.0.18, 7.0.18]"
+            "version": "[7.0.20, 7.0.20]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.18, 7.0.18]"
+            "version": "[7.0.20, 7.0.20]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[7.0.18, 7.0.18]"
+            "version": "[7.0.20, 7.0.20]"
           }
         ],
         "frameworkReferences": {
@@ -3977,8 +4044,28 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.304\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Aviso como Erro: Downgrade de pacote detectado: Microsoft.EntityFrameworkCore.SqlServer de 7.0.20 para 7.0.0. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n ClinicManager.Api -> ClinicManager.Infrastructure -> Microsoft.EntityFrameworkCore.SqlServer (>= 7.0.20) \r\n ClinicManager.Api -> Microsoft.EntityFrameworkCore.SqlServer (>= 7.0.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Aviso como Erro: Downgrade de pacote detectado: Microsoft.EntityFrameworkCore.InMemory de 7.0.20 para 7.0.0. Referencie o pacote diretamente do projeto para selecionar uma versão diferente. \r\n ClinicManager.Api -> ClinicManager.Infrastructure -> Microsoft.EntityFrameworkCore.InMemory (>= 7.0.20) \r\n ClinicManager.Api -> Microsoft.EntityFrameworkCore.InMemory (>= 7.0.0)",
+      "libraryId": "Microsoft.EntityFrameworkCore.InMemory",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

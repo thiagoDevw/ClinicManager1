@@ -16,4 +16,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClinicManager.Application\ClinicManager.Application.csproj" />
+    <ProjectReference Include="..\ClinicManager.Core\ClinicManager.Core.csproj" />
+    <ProjectReference Include="..\ClinicManager.Infrastructure\ClinicManager.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
