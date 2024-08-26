@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nmMHOxDdUL9Swuxm7Hzwsj3+8V/oBzc7KbTjKIFrBvCRzKYtv1NjpTQ41kLsPFX+pNl9CP5xQ4jbWJZ3fedtVQ==",
+  "dgSpecHash": "Z+zUcVgQJZcVX7uYuqgOFPv3nUkPoRBRDUxaJ6Y36zQ6iNRCOC6Qbc/+ZnsKf0UgHIjCSnVRsQFWeQ+RkLD5ug==",
   "success": true,
   "projectFilePath": "S:\\Clinic Manager\\ClinicManager\\ClinicManager.Core\\ClinicManager.Core.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\ta741\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
-    "C:\\Users\\ta741\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
-    "C:\\Users\\ta741\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
