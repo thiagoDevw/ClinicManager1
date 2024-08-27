@@ -26,18 +26,23 @@ namespace ClinicManager.Infrastructure.Persistence
 
                     e.HasOne(c => c.Patient)
                         .WithMany(p => p.CustomerServices)
-                        .HasForeignKey(c => c.PatientId);
+                        .HasForeignKey(c => c.PatientId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                        
 
                     e.HasOne(c => c.Doctor)
                         .WithMany(d => d.CustomerServices)
-                        .HasForeignKey(c => c.DoctorId);
+                        .HasForeignKey(c => c.DoctorId)
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     e.HasOne(s => s.Service)
                         .WithMany(s => s.CustomerServices)
-                        .HasForeignKey(c => c.ServiceId);
+                        .HasForeignKey(c => c.ServiceId)
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     e.HasIndex(c => c.PatientId);
                     e.HasIndex(c => c.DoctorId);
+                    e.HasIndex(c => c.ServiceId);
                 });
 
             // Configuração para Doctor
@@ -77,12 +82,12 @@ namespace ClinicManager.Infrastructure.Persistence
 
                     e.HasMany(d => d.CustomerServices) 
                         .WithOne(c => c.Doctor)
-                        .HasForeignKey(c => c.Doctor.Id)
+                        .HasForeignKey(c => c.DoctorId)
                         .OnDelete(DeleteBehavior.Restrict);
 
                     e.HasMany(d => d.Patients)
                         .WithOne(p => p.Doctor)
-                        .HasForeignKey(p => p.Doctor.Id);
+                        .HasForeignKey(p => p.DoctorId);
                 });
 
             // Configuração para Patient

@@ -1,10 +1,4 @@
-﻿using ClinicManager.Api.Models.CustomerModels;
-using ClinicManager.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ClinicManager.Core.Entities;
 
 namespace ClinicManager.Application.Models.CustomerModels
 {
