@@ -13,10 +13,10 @@ namespace ClinicManager.Application.Services
     public interface ICustomerService
     {
         ResultViewModel<List<CustomerItemViewModel>> GetAll(string search = "");
-        ResultViewModel<CustomerViewModel> GetById (int id);    
-        ResultViewModel<int> Insert (CreateCustomerInputModel model);
-        ResultViewModel Update(UpdateCustomerInputModel model); 
-        ResultViewModel DeleteById (int id);
+        ResultViewModel<CustomerViewModel> GetById(int id);
+        ResultViewModel<int> Insert(CreateCustomerInputModel model);
+        ResultViewModel Update(UpdateCustomerInputModel model);
+        ResultViewModel DeleteById(int id);
     }
 
     public class CustomerService : ICustomerService
@@ -34,7 +34,20 @@ namespace ClinicManager.Application.Services
 
         public ResultViewModel<List<CustomerItemViewModel>> GetAll(string search = "")
         {
-            throw new NotImplementedException();
+            var query = _context.CustomerServices.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(c => c.Patient.Name.Contains(search) ||
+                                         c.Doctor.Name.Contains(search) ||
+                                         c.Service.Name.Contains(search));
+            }
+
+            var customers = query
+                .Select(c => CustomerItemViewModel.FromEntity(c, c.Patient.Name, c.Doctor.Name, c.Service.Name))
+                .ToList();
+
+            return new ResultViewModel<List<CustomerItemViewModel>>(customers);
         }
 
         public ResultViewModel<CustomerViewModel> GetById(int id)
