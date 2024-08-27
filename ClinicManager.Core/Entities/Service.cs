@@ -29,5 +29,10 @@
                 _duration = value;
             }
         }
+
+        public Patient Patients { get; set; }
+        public int PatientId { get; set; }
+
+        public ICollection<CustomerService> CustomerServices { get; set; }
     }
 }

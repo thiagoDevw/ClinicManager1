@@ -18,8 +18,11 @@ namespace ClinicManager.Core.Entities
 
         public int Id { get; set; }
         public int PatientId { get; set; }
+        public Patient Patient { get; set; }
         public int ServiceId { get; set; }
+        public Service Service { get; set; }
         public int DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
         public string Agreement { get; set; }
         public DateTime Start {  get; set; }
         public DateTime End { get; set; }
