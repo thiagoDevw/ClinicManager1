@@ -1,5 +1,7 @@
 ﻿using ClinicManager.Api.Models.DoctorModels;
 using ClinicManager.Api.Models.PatientsModels;
+using ClinicManager.Application.Models.DoctorModels;
+using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -19,37 +21,131 @@ namespace ClinicManager.Api.Controllers
 
         // GET api/doctors
         [HttpGet]
-        public IActionResult GetAll(string query)
+        public IActionResult GetAll()
         {
-            return Ok();
+            var doctors = _context.Doctors
+                .Select(d => new
+                {
+                    d.Id,
+                    d.Name,
+                    d.LastName,
+                    d.Email,
+                    d.CPF,
+                    d.CRM
+                })
+                .ToList()
+                .Select(d => new DoctorItemViewModel(d.Id, d.Name, d.LastName, d.Email, d.CPF, d.CRM))
+                .ToList();
+
+            return Ok(doctors);
         }
 
         // GETBYID api/doctors
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok();
+            var doctor = _context.Doctors
+                .FirstOrDefault(d => d.Id == id);
+
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+
+            var doctorViewModel = DoctorViewModel.FromEntity(doctor);
+            return Ok(doctorViewModel);
         }
 
         // POST api/doctors
         [HttpPost]
-        public IActionResult PostDoctor(CreatePatientsInputModel model)
+        public IActionResult PostDoctor([FromBody] CreateDoctorInputModel model)
         {
-            return CreatedAtAction(nameof(GetById), new { id = 1 }, model);
+            if(model == null)
+            {
+                return BadRequest("Doctor data is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Name) ||
+                string.IsNullOrWhiteSpace(model.LastName) ||
+                string.IsNullOrWhiteSpace(model.Email) ||
+                string.IsNullOrWhiteSpace(model.CPF) ||
+                string.IsNullOrWhiteSpace(model.CRM))
+            {
+                return BadRequest("Some required fields are missing.");
+            }
+
+            var doctor = new Doctor
+            {
+                Name = model.Name,
+                LastName = model.LastName,
+                DateOfBirth = model.DateOfBirth,
+                Phone = model.Phone,
+                Email = model.Email,
+                CPF = model.CPF,
+                BloodType = model.BloodType,
+                Address = model.Address,
+                Specialty = model.Specialty,
+                CRM = model.CRM
+            };
+
+            _context.Doctors.Add(doctor);
+            _context.SaveChanges();
+
+            var doctorViewModel = DoctorViewModel.FromEntity(doctor);
+
+            return CreatedAtAction(nameof(GetById), new { id = doctor.Id }, doctorViewModel);
         }
 
         // PUT api/doctors
         [HttpPut("{id}")]
-        public IActionResult PutDoctor(int id, UpdateDoctorInputModel model)
+        public IActionResult PutDoctor(int id, [FromBody] UpdateDoctorInputModel model)
         {
-            return NoContent();
+            if (model == null)
+            {
+                return BadRequest("Doctor data is required.");
+            }
+
+            var doctor = _context.Doctors.SingleOrDefault(d => d.Id == id);
+
+            if (doctor == null)
+            {
+                return NotFound("Doctor not found.");
+            }
+
+            doctor.Name = model.Name;
+            doctor.LastName = model.LastName;
+            doctor.DateOfBirth = model.DateOfBirth;
+            doctor.Phone = model.Phone;
+            doctor.Email = model.Email;
+            doctor.CPF = model.CPF;
+            doctor.BloodType = model.BloodType;
+            doctor.Address = model.Address;
+            doctor.Specialty = model.Specialty;
+            doctor.CRM = model.CRM;
+
+            _context.Doctors.Update(doctor);
+            _context.SaveChanges();
+
+            var doctorViewmodel = DoctorViewModel.FromEntity(doctor);
+
+            return Ok(doctorViewmodel);
         }
 
         // DELETE api/doctors
         [HttpDelete("{id}")]
         public IActionResult DeleteDoctor(int id)
         {
-            return NoContent();
+            var doctor = _context.Doctors.SingleOrDefault(d => d.Id == id);
+            
+            if (doctor == null)
+            {
+                return NotFound("Doctor not found.");
+            }
+
+            _context.Doctors.Remove(doctor);
+            _context.SaveChanges();
+
+            return Ok(new { message = "Doctor removed successfully" });
         }
     }
 }
