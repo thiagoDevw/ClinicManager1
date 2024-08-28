@@ -1,5 +1,4 @@
-﻿using ClinicManager.Core.Entities;
-using ClinicManager.Core.Enums;
+﻿using ClinicManager.Core.Enums;
 
 namespace ClinicManager.Api.Models.CustomerModels
 {

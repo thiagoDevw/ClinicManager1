@@ -1,9 +1,7 @@
 ﻿using ClinicManager.Api.Models.DoctorModels;
-using ClinicManager.Api.Models.PatientsModels;
 using ClinicManager.Application.Models.DoctorModels;
 using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManager.Api.Controllers
@@ -24,17 +22,7 @@ namespace ClinicManager.Api.Controllers
         public IActionResult GetAll()
         {
             var doctors = _context.Doctors
-                .Select(d => new
-                {
-                    d.Id,
-                    d.Name,
-                    d.LastName,
-                    d.Email,
-                    d.CPF,
-                    d.CRM
-                })
-                .ToList()
-                .Select(d => new DoctorItemViewModel(d.Id, d.Name, d.LastName, d.Email, d.CPF, d.CRM))
+                .Select(d => DoctorItemViewModel.FromEntity(d))
                 .ToList();
 
             return Ok(doctors);

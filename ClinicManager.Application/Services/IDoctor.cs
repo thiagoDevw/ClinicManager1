@@ -1,13 +1,6 @@
-﻿using ClinicManager.Api.Models.CustomerModels;
-using ClinicManager.Application.Models.CustomerModels;
+﻿using ClinicManager.Api.Models.DoctorModels;
 using ClinicManager.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ClinicManager.Application.Models.DoctorModels;
-using ClinicManager.Api.Models.DoctorModels;
 using ClinicManager.Infrastructure.Persistence;
 
 namespace ClinicManager.Application.Services
