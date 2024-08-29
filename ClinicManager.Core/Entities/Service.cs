@@ -30,9 +30,9 @@
             }
         }
 
-        public Patient Patients { get; set; }
+        public Patient Patient { get; set; }
         public int PatientId { get; set; }
 
-        public ICollection<CustomerService> CustomerServices { get; set; }
+        public ICollection<CustomerService> CustomerServices { get; set; } = new List<CustomerService>();
     }
 }

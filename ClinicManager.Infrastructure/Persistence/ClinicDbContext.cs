@@ -107,7 +107,7 @@ namespace ClinicManager.Infrastructure.Persistence
                         .OnDelete(DeleteBehavior.Restrict);
 
                     e.HasMany(p => p.Services)
-                        .WithOne(s => s.Patients)
+                        .WithOne(s => s.Patient)
                         .HasForeignKey(s => s.PatientId)
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -130,14 +130,24 @@ namespace ClinicManager.Infrastructure.Persistence
                 {
                     e.HasKey(s => s.Id);
 
+                    e.HasOne(s => s.Patient)
+                        .WithMany(p => p.Services)
+                        .HasForeignKey(s => s.PatientId)
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     e.HasMany(s => s.CustomerServices)
                         .WithOne(cs => cs.Service)
                         .HasForeignKey(cs => cs.ServiceId);
 
-                    e.HasOne(s => s.Patients)
-                        .WithMany(p => p.Services)
-                        .HasForeignKey(s => s.PatientId);
+                    e.Property(s => s.Name)
+                        .IsRequired()
+                        .HasMaxLength(100);
 
+                    e.Property(s => s.Value)
+                        .HasColumnType("decimal(18,2)");
+
+                    e.Property(s => s.Description)
+                        .HasMaxLength(500);
                 });
 
             base.OnModelCreating(builder);
