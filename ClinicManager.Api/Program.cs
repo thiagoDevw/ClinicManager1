@@ -3,6 +3,7 @@ using ClinicManager.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using ClinicManager.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,9 @@ builder.Services.AddControllers()
 var connectionString = builder.Configuration.GetConnectionString("ClinicManagerCs");
 
 builder.Services.AddDbContext<ClinicDbContext>(o => o.UseSqlServer(connectionString));
+
+builder.Services
+    .AddApplication();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

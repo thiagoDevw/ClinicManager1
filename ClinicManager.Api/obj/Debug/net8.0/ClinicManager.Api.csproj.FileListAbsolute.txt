@@ -1,3 +1,10 @@
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.csproj.AssemblyReference.cache
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.GeneratedMSBuildEditorConfig.editorconfig
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.AssemblyInfoInputs.cache
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.AssemblyInfo.cs
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.csproj.CoreCompileInputs.cache
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.MvcApplicationPartsAssemblyInfo.cache
+S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.sourcelink.json
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\appsettings.Development.json
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\appsettings.json
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\ClinicManager.Api.exe
@@ -120,14 +127,6 @@ S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\ClinicManager
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\ClinicManager.Application.pdb
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\ClinicManager.Core.pdb
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\bin\Debug\net8.0\ClinicManager.Infrastructure.pdb
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.csproj.AssemblyReference.cache
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.GeneratedMSBuildEditorConfig.editorconfig
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.AssemblyInfoInputs.cache
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.AssemblyInfo.cs
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.csproj.CoreCompileInputs.cache
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.MvcApplicationPartsAssemblyInfo.cs
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.MvcApplicationPartsAssemblyInfo.cache
-S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\ClinicManager.Api.sourcelink.json
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\staticwebassets.build.json
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\staticwebassets.development.json
 S:\Clinic Manager\ClinicManager\ClinicManager.Api\obj\Debug\net8.0\staticwebassets\msbuild.ClinicManager.Api.Microsoft.AspNetCore.StaticWebAssets.props
