@@ -80,14 +80,9 @@ namespace ClinicManager.Infrastructure.Persistence
                     e.HasIndex(d => d.Email)
                         .IsUnique();
 
-                    e.HasMany(d => d.CustomerServices) 
-                        .WithOne(c => c.Doctor)
-                        .HasForeignKey(c => c.DoctorId)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    e.HasMany(d => d.Patients)
+                    /*e.HasMany(d => d.Patients)
                         .WithOne(p => p.Doctor)
-                        .HasForeignKey(p => p.DoctorId);
+                        .HasForeignKey(p => p.DoctorId);*/
                 });
 
             // Configuração para Patient
@@ -96,21 +91,12 @@ namespace ClinicManager.Infrastructure.Persistence
                 {
                     e.HasKey(p => p.Id);
 
-                    e.HasOne(p => p.Doctor)
-                        .WithMany(d => d.Patients)
-                        .HasForeignKey(p => p.DoctorId)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    e.HasMany(p => p.CustomerServices)
-                        .WithOne(cs => cs.Patient)
-                        .HasForeignKey(cs => cs.PatientId)
-                        .OnDelete(DeleteBehavior.Restrict);
-
+                    /*
                     e.HasMany(p => p.Services)
                         .WithOne(s => s.Patient)
                         .HasForeignKey(s => s.PatientId)
                         .OnDelete(DeleteBehavior.Cascade);
-
+                    */
                     e.Property(p => p.Name)
                         .IsRequired()
                         .HasMaxLength(100);
@@ -130,10 +116,12 @@ namespace ClinicManager.Infrastructure.Persistence
                 {
                     e.HasKey(s => s.Id);
 
+                    /*
                     e.HasOne(s => s.Patient)
                         .WithMany(p => p.Services)
                         .HasForeignKey(s => s.PatientId)
                         .OnDelete(DeleteBehavior.Cascade);
+                    */
 
                     e.HasMany(s => s.CustomerServices)
                         .WithOne(cs => cs.Service)

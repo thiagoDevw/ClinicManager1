@@ -30,6 +30,5 @@ namespace ClinicManager.Api.Models.ServiceModels
                 entity.Duration
                 );
         }
-
     }
 }

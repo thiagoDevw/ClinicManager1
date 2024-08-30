@@ -28,6 +28,5 @@ namespace ClinicManager.Core.Entities
         public string FullName => $"{Name} {LastName}";
 
         public ICollection<CustomerService> CustomerServices { get; set; }
-        public ICollection<Patient> Patients { get; set; }
     }
 }

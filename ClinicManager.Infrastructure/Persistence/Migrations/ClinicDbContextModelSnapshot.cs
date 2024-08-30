@@ -152,7 +152,7 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -210,15 +210,10 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Services");
                 });
@@ -252,24 +247,9 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("ClinicManager.Core.Entities.Patient", b =>
                 {
-                    b.HasOne("ClinicManager.Core.Entities.Doctor", "Doctor")
+                    b.HasOne("ClinicManager.Core.Entities.Doctor", null)
                         .WithMany("Patients")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-                });
-
-            modelBuilder.Entity("ClinicManager.Core.Entities.Service", b =>
-                {
-                    b.HasOne("ClinicManager.Core.Entities.Patient", "Patient")
-                        .WithMany("Services")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
+                        .HasForeignKey("DoctorId");
                 });
 
             modelBuilder.Entity("ClinicManager.Core.Entities.Doctor", b =>
@@ -282,8 +262,6 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ClinicManager.Core.Entities.Patient", b =>
                 {
                     b.Navigation("CustomerServices");
-
-                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("ClinicManager.Core.Entities.Service", b =>

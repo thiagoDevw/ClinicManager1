@@ -1,4 +1,7 @@
-﻿namespace ClinicManager.Api.Models.PatientsModels
+﻿using System.Text.Json.Serialization;
+using System.Text.Json;
+
+namespace ClinicManager.Api.Models.PatientsModels
 {
     public class CreatePatientsInputModel
     {
@@ -12,5 +15,7 @@
         public double Height { get; set; }
         public double Weight { get; set; }
         public string Address { get; set; }
+
+
     }
 }

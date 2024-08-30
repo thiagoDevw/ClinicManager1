@@ -23,7 +23,7 @@ namespace ClinicManager.Api.Controllers
             var services = _context.Services
                 .Where(s => string.IsNullOrEmpty(query) ||
                             s.Name.Contains(query) ||
-                            s.Description.Contains(query))
+                            s.Description.Contains(query)) 
                 .Select(s => ServiceItemViewModel.FromEntity(s))
                 .ToList();
 

@@ -1,4 +1,6 @@
-﻿namespace ClinicManager.Core.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace ClinicManager.Core.Entities
 {
     public class Patient : BaseEntity
     {
@@ -24,13 +26,8 @@
         public double Weight { get; set; }
         public string Address { get; set; }
 
-        public string FullName => $"{Name} {LastName}";
-
-        public ICollection<Service> Services { get; set; } = new List<Service>();
         public ICollection<CustomerService> CustomerServices { get; set; } = new List<CustomerService>();
 
-        public int DoctorId { get; set; }
-        public Doctor Doctor { get; set; }
-
+        
     }
 }
