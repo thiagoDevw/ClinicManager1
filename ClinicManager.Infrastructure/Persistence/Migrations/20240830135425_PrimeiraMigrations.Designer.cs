@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicManager.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20240830001615_PrimeiraMigration")]
-    partial class PrimeiraMigration
+    [Migration("20240830135425_PrimeiraMigrations")]
+    partial class PrimeiraMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,9 +155,6 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DoctorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -186,8 +183,6 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("CPF")
                         .IsUnique();
-
-                    b.HasIndex("DoctorId");
 
                     b.ToTable("Patients");
                 });
@@ -248,18 +243,9 @@ namespace ClinicManager.Infrastructure.Persistence.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("ClinicManager.Core.Entities.Patient", b =>
-                {
-                    b.HasOne("ClinicManager.Core.Entities.Doctor", null)
-                        .WithMany("Patients")
-                        .HasForeignKey("DoctorId");
-                });
-
             modelBuilder.Entity("ClinicManager.Core.Entities.Doctor", b =>
                 {
                     b.Navigation("CustomerServices");
-
-                    b.Navigation("Patients");
                 });
 
             modelBuilder.Entity("ClinicManager.Core.Entities.Patient", b =>

@@ -80,9 +80,6 @@ namespace ClinicManager.Infrastructure.Persistence
                     e.HasIndex(d => d.Email)
                         .IsUnique();
 
-                    /*e.HasMany(d => d.Patients)
-                        .WithOne(p => p.Doctor)
-                        .HasForeignKey(p => p.DoctorId);*/
                 });
 
             // Configuração para Patient

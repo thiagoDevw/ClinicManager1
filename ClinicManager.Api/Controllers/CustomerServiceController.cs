@@ -20,13 +20,14 @@ namespace ClinicManager.Api.Controllers
 
         // GET: api/CustomerService
         [HttpGet]
-        public IActionResult GetAll(string search = "")
+        public IActionResult GetAll(string search = "", int page = 1, int pageSize = 3)
         {
             var query = _context.CustomerServices
                     .Include(cs => cs.Patient)  
                     .Include(cs => cs.Doctor)   
-                    .Include(cs => cs.Service)  
+                    .Include(cs => cs.Service)
                     .AsQueryable();
+
 
             if (!string.IsNullOrEmpty(search))
             {
@@ -35,7 +36,12 @@ namespace ClinicManager.Api.Controllers
                                          c.Service.Name.Contains(search));
             }
 
+            var totalRecords = query.Count();
+
             var customers = query
+                .OrderBy(c => c.Patient.Name)
+                .Skip((page -1) * pageSize)
+                .Take(pageSize)
                 .Select(c => new CustomerItemViewModel(
                     c.Id,
                     c.Patient.Name,
@@ -45,7 +51,15 @@ namespace ClinicManager.Api.Controllers
                 ))
                 .ToList();
 
-            return Ok(new ResultViewModel<List<CustomerItemViewModel>>(customers));
+            var result = new
+            {
+                TotalRecords = totalRecords,
+                Page = page,
+                PageSize = pageSize,
+                Data = customers
+            };
+
+            return Ok(new ResultViewModel<object>(result));
         }
 
         // GetById api/customerService
