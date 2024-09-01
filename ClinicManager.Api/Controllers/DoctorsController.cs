@@ -1,5 +1,6 @@
 ﻿using ClinicManager.Api.Models.DoctorModels;
 using ClinicManager.Application.Models.DoctorModels;
+using ClinicManager.Application.Services.ServicesDoctor;
 using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,10 @@ namespace ClinicManager.Api.Controllers
     [Route("api/doctors")]
     public class DoctorsController : ControllerBase
     {
-        private readonly ClinicDbContext _context;
-        public DoctorsController(ClinicDbContext context)
+        private readonly IDoctorService _doctorService;
+        public DoctorsController(IDoctorService doctorService)
         {
-            _context = context;
+            _doctorService = doctorService;
         }
 
 
@@ -21,67 +22,33 @@ namespace ClinicManager.Api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var doctors = _context.Doctors
-                .Select(d => DoctorItemViewModel.FromEntity(d))
-                .ToList();
+            var result = _doctorService.GetAll();
 
-            return Ok(doctors);
+            return Ok(result);
         }
 
         // GETBYID api/doctors
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var doctor = _context.Doctors
-                .FirstOrDefault(d => d.Id == id);
+            var result = _doctorService.GetById(id);
 
-            if (doctor == null)
+            if (!result.IsSucess)
             {
-                return NotFound();
+                return BadRequest(result.Message);
             }
 
-            var doctorViewModel = DoctorViewModel.FromEntity(doctor);
-            return Ok(doctorViewModel);
+            return Ok(result);
         }
 
         // POST api/doctors
         [HttpPost]
         public IActionResult PostDoctor([FromBody] CreateDoctorInputModel model)
         {
-            if(model == null)
-            {
-                return BadRequest("Doctor data is required.");
-            }
+            var result = _doctorService.Insert(model);
 
-            if (string.IsNullOrWhiteSpace(model.Name) ||
-                string.IsNullOrWhiteSpace(model.LastName) ||
-                string.IsNullOrWhiteSpace(model.Email) ||
-                string.IsNullOrWhiteSpace(model.CPF) ||
-                string.IsNullOrWhiteSpace(model.CRM))
-            {
-                return BadRequest("Some required fields are missing.");
-            }
 
-            var doctor = new Doctor
-            {
-                Name = model.Name,
-                LastName = model.LastName,
-                DateOfBirth = model.DateOfBirth,
-                Phone = model.Phone,
-                Email = model.Email,
-                CPF = model.CPF,
-                BloodType = model.BloodType,
-                Address = model.Address,
-                Specialty = model.Specialty,
-                CRM = model.CRM
-            };
-
-            _context.Doctors.Add(doctor);
-            _context.SaveChanges();
-
-            var doctorViewModel = DoctorViewModel.FromEntity(doctor);
-
-            return CreatedAtAction(nameof(GetById), new { id = doctor.Id }, doctorViewModel);
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
         }
 
         // PUT api/doctors
@@ -90,50 +57,31 @@ namespace ClinicManager.Api.Controllers
         {
             if (model == null)
             {
-                return BadRequest("Doctor data is required.");
+                return BadRequest("Os dados do médico são obrigatórios.");
             }
 
-            var doctor = _context.Doctors.SingleOrDefault(d => d.Id == id);
+            var result = _doctorService.Update(id, model);
 
-            if (doctor == null)
+            if (!result.IsSucess)
             {
-                return NotFound("Doctor not found.");
+                return BadRequest(result.Message);
             }
 
-            doctor.Name = model.Name;
-            doctor.LastName = model.LastName;
-            doctor.DateOfBirth = model.DateOfBirth;
-            doctor.Phone = model.Phone;
-            doctor.Email = model.Email;
-            doctor.CPF = model.CPF;
-            doctor.BloodType = model.BloodType;
-            doctor.Address = model.Address;
-            doctor.Specialty = model.Specialty;
-            doctor.CRM = model.CRM;
-
-            _context.Doctors.Update(doctor);
-            _context.SaveChanges();
-
-            var doctorViewmodel = DoctorViewModel.FromEntity(doctor);
-
-            return Ok(doctorViewmodel);
+            return NoContent();
         }
 
         // DELETE api/doctors
         [HttpDelete("{id}")]
         public IActionResult DeleteDoctor(int id)
         {
-            var doctor = _context.Doctors.SingleOrDefault(d => d.Id == id);
-            
-            if (doctor == null)
+            var result = _doctorService.DeleteById(id);
+
+            if (!result.IsSucess)
             {
-                return NotFound("Doctor not found.");
+                return BadRequest(result.Message);
             }
 
-            _context.Doctors.Remove(doctor);
-            _context.SaveChanges();
-
-            return Ok(new { message = "Doctor removed successfully" });
+            return NoContent();
         }
     }
 }
