@@ -1,5 +1,6 @@
 using ClinicManager.Api.Models.PatientsModels;
 using ClinicManager.Application.Models.PatientsModels;
+using ClinicManager.Application.Services.ServicesPatient;
 using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -12,76 +13,49 @@ namespace ClinicManager.Api.Controllers
     public class PatientsController : ControllerBase
     {
         private readonly ClinicDbContext _context;
-        public PatientsController(ClinicDbContext context)
+        private readonly IPatientService _patientService;
+        public PatientsController(ClinicDbContext context, IPatientService patientService)
         {
             _context = context;
+            _patientService = patientService;
         }
 
         // GET api/patients
         [HttpGet]
-        public IActionResult GetAll(string query)
+        public IActionResult GetAll([FromQuery] string query = "")
         {
-            var patients = _context.Patients
-                .Where(p => string.IsNullOrEmpty(query) ||
-                            p.Name.Contains(query) ||
-                            p.LastName.Contains(query) ||
-                            p.Email.Contains(query) ||
-                            p.CPF.Contains(query))
-                .Select(p => PatientItemViewModel.FromEntity(p))
-                .ToList();
+            var result = _patientService.GetAll(query);
 
-            return Ok(patients);
+            if (!result.IsSucess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
         }
         
         // GETBYID api/patients
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var patient = _context.Patients
-                .FirstOrDefault(p => p.Id == id);
+            var result = _patientService.GetById(id);
 
-            if (patient == null)
+            if (!result.IsSucess)
             {
-                return NotFound(new {  message = "Paciente não encontrado." });
+                return BadRequest(result.Message);
             }
 
-            var patientViewModel = PatientViewModel.FromEntity(patient);
-
-            return Ok(patientViewModel);
+            return Ok(result);
         }
 
         // POST api/patients
         [HttpPost]
         public IActionResult PostPatients([FromBody] CreatePatientsInputModel model) 
-        { 
-            if (model == null)
-            {
-                return BadRequest("Dados do paciente não fornecidos.");
-            }
+        {
+            var result = _patientService.Insert(model);
 
-            if (_context.Patients.Any(p => p.CPF == model.CPF))
-            {
-                return Conflict("Paciente com este CPF já existe.");
-            }
 
-            var patient = new Patient
-            {
-                Name = model.Name,
-                LastName = model.LastName,
-                DateOfBirth = model.DateOfBirth,
-                Phone = model.Phone,
-                Email = model.Email,
-                CPF = model.CPF,
-                BloodType = model.BloodType,
-                Height = model.Height,
-                Weight = model.Weight,
-                Address = model.Address
-            };
-
-            _context.Patients.Add(patient);
-            _context.SaveChanges();
-
-            return CreatedAtAction(nameof(GetById), new { id = patient.Id }, PatientViewModel.FromEntity(patient));
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
         }
 
 
@@ -91,47 +65,31 @@ namespace ClinicManager.Api.Controllers
         {
             if (model == null)
             {
-                return BadRequest("Dados do paciente não fornecidos.");
+                return BadRequest("Os dados do paciente são obrigatórios.");
             }
 
-            var existingPatient = _context.Patients.Find(id);
-            if (existingPatient == null)
+            var result = _patientService.Update(id, model);
+
+            if (!result.IsSucess)
             {
-                return NotFound($"Paciente com ID {model.Id} não encontrado.");
+                return BadRequest(result.Message);
             }
 
-            existingPatient.Name = model.Name;
-            existingPatient.LastName = model.LastName;
-            existingPatient.DateOfBirth = model.DateOfBirth;
-            existingPatient.Phone = model.Phone;
-            existingPatient.Email = model.Email;
-            existingPatient.CPF = model.CPF;
-            existingPatient.BloodType = model.BloodType;
-            existingPatient.Height = model.Height;
-            existingPatient.Weight = model.Weight;
-            existingPatient.Address = model.Address;
-
-            _context.Patients.Update(existingPatient);
-            _context.SaveChanges();
-
-            return Ok(PatientViewModel.FromEntity(existingPatient));
+            return NoContent();
         }
 
         // DELETE api/patients
         [HttpDelete("{id}")]
         public IActionResult DeletePatient(int id)
         {
-            var patient = _context.Patients.SingleOrDefault(d => d.Id == id);
+            var result = _patientService.DeleteById(id);
 
-            if (patient == null)
+            if (!result.IsSucess)
             {
-                return NotFound("Paciente não encontrado.");
+                return BadRequest(result.Message);
             }
 
-            _context.Patients.Remove(patient);  
-            _context.SaveChanges();
-
-            return Ok(new { message = "Paciente removido com sucesso." });
+            return NoContent();
         }
     }
 }

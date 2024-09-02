@@ -1,5 +1,6 @@
 ﻿using ClinicManager.Application.Services.ServicesCustomer;
 using ClinicManager.Application.Services.ServicesDoctor;
+using ClinicManager.Application.Services.ServicesPatient;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace ClinicManager.Application
         {
             services.AddScoped<ICustomerService, CustomerServiceManager>();
             services.AddScoped<IDoctorService, DoctorService>();
-
+            services.AddScoped<IPatientService, PatientService>();
             return services;
         }
     }
