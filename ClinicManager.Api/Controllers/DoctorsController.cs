@@ -4,6 +4,7 @@ using ClinicManager.Application.Services.ServicesDoctor;
 using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ClinicManager.Api.Controllers
 {
@@ -20,9 +21,14 @@ namespace ClinicManager.Api.Controllers
 
         // GET api/doctors
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] string query = "")
         {
-            var result = _doctorService.GetAll();
+            var result = _doctorService.GetAll(query);
+
+            if (!result.IsSucess)
+            {
+                return BadRequest(result.Message);
+            }
 
             return Ok(result);
         }

@@ -1,5 +1,6 @@
 using ClinicManager.Api.Models.ServiceModels;
 using ClinicManager.Application.Models.ServiceModels;
+using ClinicManager.Application.Services.ServicesService;
 using ClinicManager.Core.Entities;
 using ClinicManager.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -10,41 +11,38 @@ namespace ClinicManager.Api.Controllers
     [ApiController]
     public class ServiceController : ControllerBase
     {
-        private readonly ClinicDbContext _context;
-        public ServiceController(ClinicDbContext context)
+        private readonly IService _service;
+        public ServiceController(IService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET api/service
         [HttpGet]
-        public IActionResult GetAll(string query)
+        public IActionResult GetAll([FromQuery] string? query = "")
         {
-            var services = _context.Services
-                .Where(s => string.IsNullOrEmpty(query) ||
-                            s.Name.Contains(query) ||
-                            s.Description.Contains(query)) 
-                .Select(s => ServiceItemViewModel.FromEntity(s))
-                .ToList();
+            var result = _service.GetAll(query);
 
-            return Ok(services);
+            if (!result.IsSucess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
         }
 
         // GETBYID api/service
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var service = _context.Services
-                .FirstOrDefault(s => s.Id == id);
+            var result = _service.GetById(id);
 
-            if (service == null)
+            if (!result.IsSucess)
             {
-                return NotFound(new { message = "Serviço não encontrado." });
+                return BadRequest(result.Message);
             }
 
-            var serviceViewModel = ServiceViewModel.FromEntity(service);
-
-            return Ok(serviceViewModel);
+            return Ok(result);
         }
 
 
@@ -52,33 +50,9 @@ namespace ClinicManager.Api.Controllers
         [HttpPost]
         public IActionResult PostService([FromBody] CreateServiceInputModel model)
         {
-            if (model == null)
-            {
-                return BadRequest("Dados do serviço não fornecidos.");
-            }
+            var result = _service.Insert(model);
 
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if(_context.Services.Any(s => s.Name == model.Name))
-            {
-                return Conflict("Já existe um serviço com este nome.");
-            }
-
-            var service = new Service
-            {
-                Name = model.Name,
-                Description = model.Description,
-                Value = model.Value,
-                Duration = model.Duration
-            };
-
-            _context.Services.Add(service);
-            _context.SaveChanges();
-
-            return CreatedAtAction(nameof(GetById), new { id = service.Id }, ServiceViewModel.FromEntity(service));
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
         }
 
         // PUT api/service
@@ -87,47 +61,31 @@ namespace ClinicManager.Api.Controllers
         {
             if (model == null)
             {
-                return BadRequest("Dados do serviço não fornecidos.");
+                return BadRequest("Os dados do serviço são obrigatórios.");
             }
 
-            if (id != model.Id)
+            var result = _service.Update(id, model);
+
+            if (!result.IsSucess)
             {
-                return BadRequest("Id do serviço não corresponde ao ID fornecido no modelo.");
+                return BadRequest(result.Message);
             }
 
-            var existingService = _context.Services.Find(id);
-            if (existingService == null)
-            {
-                return NotFound($"Serviço com ID {id} não encontrado.");
-            }
-
-            existingService.Name = model.Name;
-            existingService.Description = model.Description;
-            existingService.Value = model.Value;
-            existingService.Duration = model.Duration;
-
-            _context.Services.Update(existingService);
-            _context.SaveChanges();
-
-            return Ok(ServiceViewModel.FromEntity(existingService));
+            return NoContent();
         }
 
         // DELETE api/service
         [HttpDelete("{id}")]
         public IActionResult DeleteService(int id)
         {
-            var service = _context.Services.SingleOrDefault(s => s.Id == id);
+            var result = _service.DeleteById(id);
 
-            if (service == null)
+            if (!result.IsSucess)
             {
-                return NotFound("Serviço não encontrado.");
+                return BadRequest(result.Message);
             }
 
-            _context.Services.Remove(service);
-            _context.SaveChanges();
-
-
-            return Ok(new { message = "Serviço removido com sucesso." });
+            return NoContent();
         }
     }
 }

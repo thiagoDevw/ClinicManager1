@@ -29,12 +29,24 @@ namespace ClinicManager.Application.Services.ServicesDoctor
             return ResultViewModel.Success();
         }
 
-        public ResultViewModel<List<DoctorItemViewModel>> GetAll(string search = "")
+        public ResultViewModel<List<DoctorItemViewModel>> GetAll(string query)
         {
-            var doctors = _context.Doctors
+            var doctorsQuery = _context.Doctors.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                query = query.ToLower();
+                doctorsQuery = doctorsQuery.Where(d =>
+                    d.Name.ToLower().Contains(query) ||
+                    d.LastName.ToLower().Contains(query) ||
+                    d.Email.ToLower().Contains(query) ||
+                    d.CPF.ToLower().Contains(query) ||
+                    d.CRM.ToLower().Contains(query));
+            }
+
+            var doctors = doctorsQuery
                 .Select(d => DoctorItemViewModel.FromEntity(d))
                 .ToList();
-
 
             return ResultViewModel<List<DoctorItemViewModel>>.Success(doctors);
         }
