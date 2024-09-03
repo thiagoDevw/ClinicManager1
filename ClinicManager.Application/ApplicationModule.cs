@@ -3,11 +3,6 @@ using ClinicManager.Application.Services.ServicesDoctor;
 using ClinicManager.Application.Services.ServicesPatient;
 using ClinicManager.Application.Services.ServicesService;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClinicManager.Application
 {
@@ -29,5 +24,6 @@ namespace ClinicManager.Application
             services.AddScoped<IService, ServiceManager>();
             return services;
         }
+
     }
 }
